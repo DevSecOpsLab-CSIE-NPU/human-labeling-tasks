@@ -76,15 +76,56 @@ def fetch_with_retry(annotator: str) -> dict:
 
 
 def save_csv(annotator: str, rows: list[dict]) -> Path:
-    """將標注資料存為 CSV，回傳路徑。"""
+    """
+    將標注資料合併回作業檔，回傳路徑。
+
+    策略：以現有 task_annotator_{X}.csv 為底板（保留所有 400 筆樣本），
+    把從 Google Sheets 拿到的已完成標注覆蓋對應的 sample_id 行。
+    這樣不會把尚未標注的樣本從檔案中消失。
+    """
     out_dir = ROOT / "results" / f"annotator_{annotator}"
     out_dir.mkdir(parents=True, exist_ok=True)
     out = out_dir / f"task_annotator_{annotator}.csv"
 
+    # 把 Sheets 回傳的資料轉成 {sample_id: row} 方便查詢
+    sheets_map = {r["sample_id"]: r for r in rows if r.get("sample_id")}
+
+    # 讀取現有作業檔（底板）
+    if out.exists():
+        with open(out, newline="", encoding="utf-8") as f:
+            template_rows = list(csv.DictReader(f))
+        template_fields = list(csv.DictReader(
+            open(out, encoding="utf-8")
+        ).fieldnames or FIELDNAMES)
+    else:
+        template_rows = []
+        template_fields = FIELDNAMES
+
+    # 合併：底板行 + Sheets 覆蓋標注欄位
+    ANNOTATION_COLS = {"A1_is_distorted", "A2_severity", "A3_correct_emotion",
+                       "annotator_notes", "timestamp", "userName"}
+    merged = []
+    for row in template_rows:
+        sid = row.get("sample_id", "")
+        if sid in sheets_map:
+            updated = dict(row)
+            for col in ANNOTATION_COLS:
+                if col in sheets_map[sid]:
+                    updated[col] = sheets_map[sid][col]
+            merged.append(updated)
+        else:
+            merged.append(row)
+
+    # 如果 Sheets 有底板裡沒有的樣本（理論上不應出現），直接附加
+    existing_ids = {r.get("sample_id") for r in template_rows}
+    for sid, r in sheets_map.items():
+        if sid not in existing_ids:
+            merged.append(r)
+
     with open(out, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=FIELDNAMES, extrasaction="ignore")
+        writer = csv.DictWriter(f, fieldnames=template_fields, extrasaction="ignore")
         writer.writeheader()
-        writer.writerows(rows)
+        writer.writerows(merged)
     return out
 
 

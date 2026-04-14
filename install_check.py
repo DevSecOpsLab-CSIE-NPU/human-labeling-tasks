@@ -51,7 +51,7 @@ print("\n[2/4] 前端檔案")
 check("web/index.html 存在",
       lambda: ((ROOT/"docs"/"index.html").exists(), "found"))
 
-check("web/data.js 存在（200 筆 JSON）",
+check("web/data.js 存在（400 筆 JSON）",
       lambda: (
           (ROOT/"web"/"data.js").exists() and
           "SAMPLES" in (ROOT/"web"/"data.js").read_text(),
@@ -119,8 +119,8 @@ if needs_action:
 else:
     print(f"\n  🎉 所有檢查通過！系統已就緒。")
     print(f"\n  標注者連結（部署後）：")
-    print(f"    A: https://augustchaotw.github.io/ill-posed-AffectTrace/labeling/?annotator=A")
-    print(f"    B: https://augustchaotw.github.io/ill-posed-AffectTrace/labeling/?annotator=B")
-    print(f"    C: https://augustchaotw.github.io/ill-posed-AffectTrace/labeling/?annotator=C")
+    print(f"    A: https://devsecopslab-csie-npu.github.io/human-labeling-tasks/?annotator=A")
+    print(f"    B: https://devsecopslab-csie-npu.github.io/human-labeling-tasks/?annotator=B")
+    print(f"    C: https://devsecopslab-csie-npu.github.io/human-labeling-tasks/?annotator=C")
 
 print()
