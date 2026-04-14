@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>情感修復標注系統 — VAD 失真驗證</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --border: #e0e4ea;
+    --accent: #2563eb;
+    --accent-light: #eff6ff;
+    --yes: #16a34a;
+    --yes-bg: #f0fdf4;
+    --no: #dc2626;
+    --no-bg: #fef2f2;
+    --text: #1e293b;
+    --muted: #64748b;
+    --warn: #f59e0b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+         background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* ── Login screen ─────────────────────────────────────── */
+  #login-screen {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; padding: 2rem;
+  }
+  .login-card {
+    background: var(--card); border-radius: 12px; padding: 2.5rem;
+    width: 100%; max-width: 420px; box-shadow: 0 4px 24px rgba(0,0,0,.08);
+    text-align: center;
+  }
+  .login-card h1 { font-size: 1.4rem; margin-bottom: .4rem; }
+  .login-card p  { color: var(--muted); font-size: .9rem; margin-bottom: 2rem; }
+  .login-card label { display: block; text-align: left; font-size: .85rem;
+                      font-weight: 600; margin-bottom: .4rem; color: var(--muted); }
+  .login-card select, .login-card input {
+    width: 100%; padding: .6rem .8rem; border: 1px solid var(--border);
+    border-radius: 6px; font-size: 1rem; margin-bottom: 1rem;
+    background: var(--card);
+  }
+  .btn-primary {
+    width: 100%; padding: .75rem; background: var(--accent); color: #fff;
+    border: none; border-radius: 8px; font-size: 1rem; font-weight: 600;
+    cursor: pointer; transition: background .15s;
+  }
+  .btn-primary:hover { background: #1d4ed8; }
+  .btn-primary:disabled { background: #94a3b8; cursor: not-allowed; }
+
+  /* ── Main labeling UI ─────────────────────────────────── */
+  #app { display: none; max-width: 860px; margin: 0 auto; padding: 1rem; }
+
+  .top-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .75rem 1rem; background: var(--card); border-radius: 10px;
+    margin-bottom: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .top-bar .user-badge {
+    background: var(--accent-light); color: var(--accent);
+    padding: .25rem .75rem; border-radius: 99px; font-size: .85rem; font-weight: 600;
+  }
+  .top-bar .progress-text { font-size: .85rem; color: var(--muted); }
+  .progress-bar-wrap { height: 4px; background: var(--border); border-radius: 2px;
+                        margin-top: .5rem; }
+  .progress-bar-fill { height: 100%; background: var(--accent);
+                        border-radius: 2px; transition: width .3s; }
+
+  .card { background: var(--card); border-radius: 10px; padding: 1.25rem;
+          box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-bottom: 1rem; }
+  .card h2 { font-size: .75rem; font-weight: 700; text-transform: uppercase;
+             letter-spacing: .06em; color: var(--muted); margin-bottom: .6rem; }
+
+  .review-text {
+    font-size: 1.05rem; line-height: 1.65; padding: 1rem;
+    background: #f8fafc; border-left: 4px solid var(--accent);
+    border-radius: 0 6px 6px 0; font-style: italic;
+  }
+
+  .json-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+  @media (max-width: 600px) { .json-grid { grid-template-columns: 1fr; } }
+
+  .json-box { background: #1e293b; color: #e2e8f0; padding: .8rem 1rem;
+              border-radius: 6px; font-family: "JetBrains Mono", "Fira Code", monospace;
+              font-size: .8rem; line-height: 1.6; overflow-x: auto; }
+  .json-box .label { font-size: .7rem; color: #94a3b8;
+                     margin-bottom: .3rem; display: block; }
+  .json-box .err  { color: #f87171; }
+  .json-box .ok   { color: #86efac; }
+  .json-box .key  { color: #7dd3fc; }
+  .json-box .val  { color: #fde68a; }
+
+  .emotion-diff {
+    display: flex; align-items: center; gap: .75rem;
+    padding: .75rem 1rem; background: #fffbeb; border: 1px solid #fde68a;
+    border-radius: 8px;
+  }
+  .emotion-tag {
+    padding: .3rem .75rem; border-radius: 99px; font-size: .85rem; font-weight: 600;
+  }
+  .tag-orig { background: var(--accent-light); color: var(--accent); }
+  .tag-rep  { background: #fef3c7; color: #92400e; }
+  .arrow { color: var(--warn); font-size: 1.2rem; }
+
+  /* ── Annotation form ──────────────────────────────────── */
+  .q-label { font-weight: 600; margin-bottom: .5rem; font-size: .95rem; }
+  .q-sub   { font-size: .82rem; color: var(--muted); margin-bottom: .75rem; }
+
+  .btn-group { display: flex; gap: .5rem; flex-wrap: wrap; }
+  .btn-opt {
+    padding: .55rem 1.1rem; border: 2px solid var(--border); border-radius: 8px;
+    background: var(--card); font-size: .9rem; cursor: pointer; font-weight: 500;
+    transition: all .15s;
+  }
+  .btn-opt:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-opt.selected-yes { border-color: var(--yes); background: var(--yes-bg);
+                           color: var(--yes); }
+  .btn-opt.selected-no  { border-color: var(--no); background: var(--no-bg);
+                           color: var(--no); }
+  .btn-opt.selected     { border-color: var(--accent); background: var(--accent-light);
+                           color: var(--accent); }
+
+  .emotion-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px,1fr));
+                  gap: .4rem; }
+
+  textarea {
+    width: 100%; padding: .6rem .8rem; border: 1px solid var(--border);
+    border-radius: 6px; font-size: .9rem; resize: vertical; min-height: 60px;
+    font-family: inherit;
+  }
+
+  .nav-bar {
+    display: flex; gap: .75rem; justify-content: space-between; align-items: center;
+    padding: 1rem 0;
+  }
+  .btn-nav {
+    padding: .6rem 1.4rem; border-radius: 8px; font-size: .9rem; font-weight: 600;
+    cursor: pointer; border: 2px solid var(--border); background: var(--card);
+    transition: all .15s;
+  }
+  .btn-nav:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .btn-nav:disabled { opacity: .4; cursor: not-allowed; }
+  .btn-submit {
+    padding: .65rem 2rem; background: var(--accent); color: #fff;
+    border: none; border-radius: 8px; font-size: .95rem; font-weight: 700;
+    cursor: pointer; transition: background .15s;
+  }
+  .btn-submit:hover:not(:disabled) { background: #1d4ed8; }
+  .btn-submit:disabled { background: #94a3b8; cursor: not-allowed; }
+  .btn-submit.saved { background: var(--yes); }
+
+  .sample-counter { font-size: .9rem; color: var(--muted); }
+
+  /* ── Toast ────────────────────────────────────────────── */
+  #toast {
+    position: fixed; bottom: 1.5rem; right: 1.5rem;
+    padding: .7rem 1.2rem; border-radius: 8px; font-size: .9rem; font-weight: 600;
+    display: none; z-index: 999; box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  }
+  #toast.success { background: var(--yes); color: #fff; }
+  #toast.error   { background: var(--no); color: #fff; }
+
+  /* ── Done screen ──────────────────────────────────────── */
+  #done-screen {
+    display: none; align-items: center; justify-content: center;
+    min-height: 60vh; text-align: center; padding: 2rem;
+  }
+  #done-screen h2 { font-size: 1.8rem; margin-bottom: .5rem; color: var(--yes); }
+  #done-screen p  { color: var(--muted); margin-bottom: 1.5rem; }
+
+  .malform-badge {
+    display: inline-block; padding: .15rem .5rem; background: #f1f5f9;
+    border-radius: 4px; font-size: .72rem; color: var(--muted);
+    font-family: monospace; margin-left: .4rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     LOGIN SCREEN
+═══════════════════════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <h1>情感修復標注系統</h1>
+    <p>VAD 距離失真驗證研究<br>IEEE Transactions on Affective Computing</p>
+
+    <label for="sel-annotator">選擇你的標注者身份</label>
+    <select id="sel-annotator">
+      <option value="">── 請選擇 ──</option>
+      <option value="A">標注者 A</option>
+      <option value="B">標注者 B</option>
+      <option value="C">標注者 C</option>
+    </select>
+
+    <label for="inp-name">你的名字（供記錄用）</label>
+    <input id="inp-name" type="text" placeholder="例：王小明">
+
+    <button class="btn-primary" id="btn-start" disabled>開始標注</button>
+
+    <p style="font-size:.78rem;color:var(--muted);margin-top:1rem;">
+      共 200 筆樣本，預計 45–60 分鐘<br>
+      進度自動儲存，可中途離開再繼續
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     MAIN APP
+═══════════════════════════════════════════════════════ -->
+<div id="app">
+  <!-- Top bar -->
+  <div class="top-bar">
+    <div>
+      <span class="user-badge" id="badge-user"></span>
+      <span style="margin-left:.5rem;font-size:.85rem;color:var(--muted)" id="badge-name"></span>
+    </div>
+    <div style="text-align:right">
+      <div class="progress-text" id="progress-text"></div>
+      <div class="progress-bar-wrap" style="width:160px">
+        <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Review text -->
+  <div class="card">
+    <h2>原始評論文本</h2>
+    <div class="review-text" id="c-text"></div>
+    <div style="margin-top:.5rem;font-size:.78rem;color:var(--muted)">
+      領域：<span id="c-domain"></span>
+      &nbsp;│&nbsp; 樣本 ID：<span id="c-id" style="font-family:monospace"></span>
+    </div>
+  </div>
+
+  <!-- LLM outputs -->
+  <div class="card">
+    <h2>LLM 輸出與修復結果</h2>
+    <div class="json-grid">
+      <div>
+        <div class="json-box">
+          <span class="label">LLM 原始輸出（含格式錯誤）<span class="malform-badge" id="c-malform"></span></span>
+          <div id="c-raw"></div>
+        </div>
+      </div>
+      <div>
+        <div class="json-box">
+          <span class="label ok">修復後輸出（Stage 1+2 完成）</span>
+          <div id="c-repaired"></div>
+        </div>
+      </div>
+    </div>
+    <div class="emotion-diff" style="margin-top:.75rem">
+      <span style="font-size:.82rem;color:var(--muted);white-space:nowrap">情感標籤變化：</span>
+      <span class="emotion-tag tag-orig" id="c-emo-orig"></span>
+      <span class="arrow">→</span>
+      <span class="emotion-tag tag-rep" id="c-emo-rep"></span>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="card">
+    <div class="q-label">Q1 &nbsp;修復後的情感標籤是否忠實代表原文的情感內容？</div>
+    <div class="q-sub">YES = 修復保留了情感含義（或改變不明顯）&nbsp;&nbsp;NO = 修復改變了情感含義（明顯可感知的失真）</div>
+    <div class="btn-group">
+      <button class="btn-opt" data-q="A1" data-v="YES" onclick="selectOpt(this,'A1','YES')">
+        ✓ YES — 情感已保留
+      </button>
+      <button class="btn-opt" data-q="A1" data-v="NO" onclick="selectOpt(this,'A1','NO')">
+        ✗ NO — 情感被改變了
+      </button>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="card" id="q2-card">
+    <div class="q-label">Q2 &nbsp;失真的嚴重程度？<span style="font-weight:400;color:var(--muted)">（A1=YES 時選 None）</span></div>
+    <div class="btn-group">
+      <button class="btn-opt" data-q="A2" data-v="None"     onclick="selectOpt(this,'A2','None')">None — 無失真</button>
+      <button class="btn-opt" data-q="A2" data-v="Slight"   onclick="selectOpt(this,'A2','Slight')">Slight — 輕微偏差</button>
+      <button class="btn-opt" data-q="A2" data-v="Moderate" onclick="selectOpt(this,'A2','Moderate')">Moderate — 明顯偏差</button>
+      <button class="btn-opt" data-q="A2" data-v="Severe"   onclick="selectOpt(this,'A2','Severe')">Severe — 嚴重錯誤</button>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="card">
+    <div class="q-label">Q3 &nbsp;你認為正確的情感標籤是？</div>
+    <div class="q-sub">若同意修復結果，選擇與「修復後情感」相同的選項</div>
+    <div class="emotion-grid" id="emotion-grid">
+      <!-- filled by JS -->
+    </div>
+  </div>
+
+  <!-- Notes -->
+  <div class="card">
+    <div class="q-label" style="font-weight:500;color:var(--muted)">備註（選填）</div>
+    <textarea id="inp-notes" placeholder="例：語氣諷刺、情感模糊、語境依賴…"></textarea>
+  </div>
+
+  <!-- Nav -->
+  <div class="nav-bar">
+    <button class="btn-nav" id="btn-prev" onclick="navigate(-1)" disabled>← 上一筆</button>
+    <span class="sample-counter" id="nav-counter"></span>
+    <div style="display:flex;gap:.5rem">
+      <button class="btn-submit" id="btn-save" onclick="saveAndNext()">
+        儲存並繼續 →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- DONE -->
+<div id="done-screen">
+  <div>
+    <div style="font-size:3rem">🎉</div>
+    <h2>標注完成！</h2>
+    <p>所有 200 筆樣本已標注完成。<br>資料已寫入 Google Spreadsheet。</p>
+    <button class="btn-primary" style="max-width:200px;margin:0 auto"
+            onclick="location.reload()">重新開始</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script src="data.js"></script>
+<script>
+// ══════════════════════════════════════════════════════
+//  CONFIG — 填入你的 Google Apps Script Web App URL
+// ══════════════════════════════════════════════════════
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
+
+// ══════════════════════════════════════════════════════
+//  Emotion options
+// ══════════════════════════════════════════════════════
+const EMOTIONS = [
+  "joy","sadness","anger","fear","surprise",
+  "disgust","frustration","annoyance","neutral",
+  "contentment","excitement","anxiety"
+];
+
+// ══════════════════════════════════════════════════════
+//  State
+// ══════════════════════════════════════════════════════
+let annotator = "", userName = "", current = 0;
+let answers = {};   // { sampleId: { A1, A2, A3, notes } }
+const STORAGE_KEY = () => `vad_annot_${annotator}`;
+
+// ══════════════════════════════════════════════════════
+//  Login
+// ══════════════════════════════════════════════════════
+const selAnnotator = document.getElementById("sel-annotator");
+const inpName      = document.getElementById("inp-name");
+const btnStart     = document.getElementById("btn-start");
+
+selAnnotator.addEventListener("change", checkLogin);
+inpName.addEventListener("input", checkLogin);
+function checkLogin() {
+  btnStart.disabled = !(selAnnotator.value && inpName.value.trim());
+}
+
+document.getElementById("btn-start").onclick = () => {
+  annotator = selAnnotator.value;
+  userName  = inpName.value.trim();
+  // Load saved progress
+  const saved = localStorage.getItem(STORAGE_KEY());
+  if (saved) answers = JSON.parse(saved);
+  // Find first unanswered
+  current = 0;
+  for (let i = 0; i < SAMPLES.length; i++) {
+    if (!answers[SAMPLES[i].id]) { current = i; break; }
+    if (i === SAMPLES.length - 1) current = SAMPLES.length - 1;
+  }
+  document.getElementById("login-screen").style.display = "none";
+  document.getElementById("app").style.display = "block";
+  document.getElementById("badge-user").textContent = `標注者 ${annotator}`;
+  document.getElementById("badge-name").textContent = userName;
+  buildEmotionGrid();
+  render();
+};
+
+// ══════════════════════════════════════════════════════
+//  Emotion grid
+// ══════════════════════════════════════════════════════
+function buildEmotionGrid() {
+  const grid = document.getElementById("emotion-grid");
+  grid.innerHTML = EMOTIONS.map(e =>
+    `<button class="btn-opt" data-q="A3" data-v="${e}"
+             onclick="selectOpt(this,'A3','${e}')">${e}</button>`
+  ).join("");
+}
+
+// ══════════════════════════════════════════════════════
+//  Render current sample
+// ══════════════════════════════════════════════════════
+function render() {
+  if (current >= SAMPLES.length) { showDone(); return; }
+  const s = SAMPLES[current];
+
+  document.getElementById("c-text").textContent    = s.text;
+  document.getElementById("c-domain").textContent  = s.domain;
+  document.getElementById("c-id").textContent      = s.id;
+  document.getElementById("c-malform").textContent = s.malform.replace(/_/g," ");
+  document.getElementById("c-raw").innerHTML       = highlightJson(s.raw);
+  document.getElementById("c-repaired").innerHTML  = highlightJson(s.repaired, true);
+  document.getElementById("c-emo-orig").textContent = s.llm_emotion;
+  document.getElementById("c-emo-rep").textContent  = s.repaired_emotion;
+
+  // Update progress
+  const done = Object.keys(answers).length;
+  document.getElementById("progress-text").textContent =
+    `${done} / ${SAMPLES.length} 已完成`;
+  document.getElementById("progress-bar").style.width =
+    (done / SAMPLES.length * 100) + "%";
+  document.getElementById("nav-counter").textContent =
+    `第 ${current + 1} / ${SAMPLES.length} 筆`;
+  document.getElementById("btn-prev").disabled = (current === 0);
+
+  // Restore saved answers
+  const saved = answers[s.id];
+  clearSelections();
+  if (saved) {
+    restoreBtn("A1", saved.A1);
+    restoreBtn("A2", saved.A2);
+    restoreBtn("A3", saved.A3);
+    document.getElementById("inp-notes").value = saved.notes || "";
+    updateSaveBtn(true);
+  } else {
+    document.getElementById("inp-notes").value = "";
+    updateSaveBtn(false);
+  }
+}
+
+function highlightJson(raw, ok=false) {
+  // Simple syntax highlight
+  const escaped = raw
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  return escaped
+    .replace(/"([^"]+)"(\s*:)/g, '<span class="key">"$1"</span>$2')
+    .replace(/:\s*"([^"]*)"/g, ': <span class="val">"$1"</span>')
+    .replace(/:\s*(\d+\.?\d*)/g, ': <span class="val">$1</span>');
+}
+
+function clearSelections() {
+  document.querySelectorAll(".btn-opt").forEach(b => {
+    b.classList.remove("selected","selected-yes","selected-no");
+  });
+}
+
+function restoreBtn(q, v) {
+  if (!v) return;
+  const btn = document.querySelector(`.btn-opt[data-q="${q}"][data-v="${v}"]`);
+  if (btn) applySelection(btn, q, v);
+}
+
+// ══════════════════════════════════════════════════════
+//  Selection logic
+// ══════════════════════════════════════════════════════
+function selectOpt(btn, q, v) {
+  // Deselect siblings
+  document.querySelectorAll(`.btn-opt[data-q="${q}"]`).forEach(b =>
+    b.classList.remove("selected","selected-yes","selected-no"));
+  applySelection(btn, q, v);
+  // Auto-set A2 when A1=YES
+  if (q === "A1" && v === "YES") {
+    const noneBtn = document.querySelector('.btn-opt[data-q="A2"][data-v="None"]');
+    if (noneBtn) {
+      document.querySelectorAll('.btn-opt[data-q="A2"]').forEach(b =>
+        b.classList.remove("selected","selected-yes","selected-no"));
+      applySelection(noneBtn, "A2", "None");
+    }
+  }
+  checkReady();
+}
+
+function applySelection(btn, q, v) {
+  if (q === "A1" && v === "YES") btn.classList.add("selected-yes");
+  else if (q === "A1" && v === "NO") btn.classList.add("selected-no");
+  else btn.classList.add("selected");
+}
+
+function getSelected(q) {
+  const btn = document.querySelector(`.btn-opt.selected[data-q="${q}"],
+    .btn-opt.selected-yes[data-q="${q}"],
+    .btn-opt.selected-no[data-q="${q}"]`);
+  return btn ? btn.dataset.v : "";
+}
+
+function checkReady() {
+  const ok = getSelected("A1") && getSelected("A2") && getSelected("A3");
+  updateSaveBtn(false, ok);
+}
+
+function updateSaveBtn(saved, canSave) {
+  const btn = document.getElementById("btn-save");
+  if (saved) {
+    btn.textContent = "✓ 已儲存 — 繼續下一筆 →";
+    btn.classList.add("saved");
+    btn.disabled = false;
+  } else {
+    btn.textContent = "儲存並繼續 →";
+    btn.classList.remove("saved");
+    btn.disabled = canSave === false ? true : false;
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  Save & next
+// ══════════════════════════════════════════════════════
+async function saveAndNext() {
+  const s = SAMPLES[current];
+  const A1 = getSelected("A1");
+  const A2 = getSelected("A2");
+  const A3 = getSelected("A3");
+  const notes = document.getElementById("inp-notes").value.trim();
+
+  if (!A1 || !A2 || !A3) { showToast("請完成所有必填項目", "error"); return; }
+
+  const record = {
+    annotator, userName, timestamp: new Date().toISOString(),
+    sample_id: s.id, domain: s.domain,
+    llm_emotion: s.llm_emotion, repaired_emotion: s.repaired_emotion,
+    A1_is_distorted: A1, A2_severity: A2, A3_correct_emotion: A3,
+    annotator_notes: notes,
+  };
+
+  // Save to localStorage immediately
+  answers[s.id] = { A1, A2, A3, notes };
+  localStorage.setItem(STORAGE_KEY(), JSON.stringify(answers));
+  updateSaveBtn(true);
+  showToast("✓ 儲存成功", "success");
+
+  // Push to Google Sheets (non-blocking)
+  pushToSheets(record);
+
+  // Advance
+  await delay(400);
+  current++;
+  if (current >= SAMPLES.length) { showDone(); return; }
+  render();
+}
+
+async function pushToSheets(record) {
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("YOUR_SCRIPT_ID")) return;
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(record),
+    });
+  } catch(e) {
+    console.warn("Sheets push failed (local save still OK):", e);
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  Navigation
+// ══════════════════════════════════════════════════════
+function navigate(dir) {
+  current = Math.max(0, Math.min(SAMPLES.length - 1, current + dir));
+  render();
+}
+
+// ══════════════════════════════════════════════════════
+//  Keyboard shortcuts
+// ══════════════════════════════════════════════════════
+document.addEventListener("keydown", e => {
+  if (document.getElementById("app").style.display === "none") return;
+  if (e.target.tagName === "TEXTAREA") return;
+  if (e.key === "y" || e.key === "Y") {
+    document.querySelector('.btn-opt[data-q="A1"][data-v="YES"]')?.click();
+  } else if (e.key === "n" || e.key === "N") {
+    document.querySelector('.btn-opt[data-q="A1"][data-v="NO"]')?.click();
+  } else if (e.key === "Enter") {
+    const btn = document.getElementById("btn-save");
+    if (!btn.disabled) btn.click();
+  } else if (e.key === "ArrowLeft") {
+    navigate(-1);
+  }
+});
+
+// ══════════════════════════════════════════════════════
+//  Done screen
+// ══════════════════════════════════════════════════════
+function showDone() {
+  document.getElementById("app").style.display = "none";
+  const d = document.getElementById("done-screen");
+  d.style.display = "flex";
+}
+
+// ══════════════════════════════════════════════════════
+//  Toast
+// ══════════════════════════════════════════════════════
+function showToast(msg, type="success") {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = type;
+  t.style.display = "block";
+  setTimeout(() => t.style.display = "none", 2000);
+}
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+</script>
+</body>
+</html>
