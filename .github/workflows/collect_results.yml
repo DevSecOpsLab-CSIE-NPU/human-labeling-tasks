@@ -1,0 +1,61 @@
+name: Collect Annotation Results
+
+# 每 4 小時自動同步一次，也可手動觸發
+on:
+  schedule:
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
+    inputs:
+      annotators:
+        description: '要同步的標注者（逗號分隔，預設 A,B,C）'
+        required: false
+        default: 'A,B,C'
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # 需要 write 才能 git push
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Collect annotation results
+        id: collect
+        run: |
+          python scripts/collect_results.py 2>&1 | tee collect_output.txt
+          echo "summary<<EOF" >> $GITHUB_OUTPUT
+          cat collect_output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+        env:
+          APPS_SCRIPT_URL: ${{ secrets.APPS_SCRIPT_URL }}
+          ANNOTATORS: ${{ github.event.inputs.annotators || 'A,B,C' }}
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add results/ logs/
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
+            git commit -m "chore: auto-sync annotation results ${TIMESTAMP}"
+            git push
+          fi
+
+      - name: Post summary
+        run: |
+          echo "## Annotation Sync Report" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat collect_output.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
