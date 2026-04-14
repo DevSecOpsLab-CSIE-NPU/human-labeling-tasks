@@ -233,10 +233,10 @@ def test_keyboard_shortcuts(key, expected_q, expected_v):
 
 
 # ════════════════════════════════════════════════════════
-#  TC-FE-11  全部 200 筆模擬標注流程（整合測試）
+#  TC-FE-11  全部 400 筆模擬標注流程（整合測試）
 # ════════════════════════════════════════════════════════
 def test_full_annotation_flow():
-    """模擬一位標注者完成所有 200 筆的完整流程"""
+    """模擬一位標注者完成所有 400 筆的完整流程"""
     import csv
     from pathlib import Path
 
@@ -268,4 +268,4 @@ def test_full_annotation_flow():
 
     # 最終確認
     final = store.get(key)
-    assert len(final) == 200, f"Expected 200 saved answers, got {len(final)}"
+    assert len(final) == 400, f"Expected 400 saved answers, got {len(final)}"

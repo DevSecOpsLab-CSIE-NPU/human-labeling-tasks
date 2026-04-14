@@ -28,16 +28,16 @@ print("  VAD 標注系統 — 安裝驗證")
 print("="*65)
 
 print("\n[1/4] 資料檔案")
-check("master_200_with_vad.csv 存在",
+check("master_400_with_vad.csv 存在",
       lambda: (
-          (ROOT/"data"/"master_200_with_vad.csv").exists(),
-          "found" if (ROOT/"data"/"master_200_with_vad.csv").exists() else "missing"
+          (ROOT/"data"/"master_400_with_vad.csv").exists(),
+          "found" if (ROOT/"data"/"master_400_with_vad.csv").exists() else "missing"
       ))
 
-check("200 筆樣本完整",
+check("400 筆樣本完整",
       lambda: (
-          (lambda rows: (len(rows)==200, f"{len(rows)} rows"))
-          (list(csv.DictReader(open(ROOT/"data"/"master_200_with_vad.csv"))))
+          (lambda rows: (len(rows)==400, f"{len(rows)} rows"))
+          (list(csv.DictReader(open(ROOT/"data"/"master_400_with_vad.csv"))))
       ))
 
 check("標注者作業檔 A/B/C 都存在",

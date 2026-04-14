@@ -147,3 +147,82 @@ def test_all_same_label():
     # P_e = 1.0 → special case: return 1.0
     assert k == 1.0
     assert n == 3
+
+
+# ════════════════════════════════════════════════════════
+#  TC-K-10  A3 多類別 κ：完全一致 → 1.0
+# ════════════════════════════════════════════════════════
+def test_a3_perfect_agreement():
+    """A3 是 12 類情感，完全一致應回傳 κ = 1.0"""
+    a1 = {"D001": "joy", "D002": "anger", "D003": "sadness", "D004": "fear"}
+    a2 = {"D001": "joy", "D002": "anger", "D003": "sadness", "D004": "fear"}
+    k, n = cohens_kappa(a1, a2)
+    assert k == 1.0
+    assert n == 4
+
+
+# ════════════════════════════════════════════════════════
+#  TC-K-11  A3 多類別 κ：known-value 驗證（手算）
+# ════════════════════════════════════════════════════════
+def test_a3_known_kappa_value():
+    """
+    手算：4 筆，3 類標籤（joy/anger/sadness）
+    A1: joy   anger sadness joy
+    A2: joy   anger sadness anger   ← 第4筆不一致
+
+    P_o = 3/4 = 0.75
+    邊際：
+      A1: joy=2/4, anger=1/4, sadness=1/4
+      A2: joy=1/4, anger=2/4, sadness=1/4
+    P_e = (2/4)(1/4) + (1/4)(2/4) + (1/4)(1/4)
+        = 2/16 + 2/16 + 1/16 = 5/16 = 0.3125
+    κ = (0.75 - 0.3125) / (1 - 0.3125) = 0.4375 / 0.6875 ≈ 0.6364
+    """
+    a1 = {"D001": "joy",   "D002": "anger", "D003": "sadness", "D004": "joy"}
+    a2 = {"D001": "joy",   "D002": "anger", "D003": "sadness", "D004": "anger"}
+    k, n = cohens_kappa(a1, a2)
+    assert n == 4
+    assert abs(k - 0.6364) < 0.001, f"Expected κ ≈ 0.6364, got {k}"
+
+
+# ════════════════════════════════════════════════════════
+#  TC-K-12  A3 多類別 κ：類別數不影響函數通用性
+# ════════════════════════════════════════════════════════
+def test_a3_multiclass_generalizes():
+    """12 類情感標籤，各自有代表性樣本，κ 應在合理範圍內不崩潰"""
+    emotions = ["joy", "sadness", "anger", "fear", "surprise",
+                "disgust", "frustration", "annoyance", "neutral",
+                "contentment", "excitement", "anxiety"]
+    # 兩位標注者：大部分一致，各有 2 筆不一致
+    a1, a2 = {}, {}
+    for i, emo in enumerate(emotions):
+        sid = f"S{i:03d}"
+        a1[sid] = emo
+        a2[sid] = emo  # 一致
+
+    # 製造 2 筆不一致
+    a2["S000"] = "sadness"   # joy → sadness
+    a2["S001"] = "anger"     # sadness → anger
+
+    k, n = cohens_kappa(a1, a2)
+    assert n == 12
+    assert k is not None
+    assert -1.0 <= k <= 1.0, f"κ out of range: {k}"
+
+
+# ════════════════════════════════════════════════════════
+#  TC-K-13  A3 與 A1 共用同一 cohens_kappa 函數（通用性）
+# ════════════════════════════════════════════════════════
+def test_cohens_kappa_is_generic():
+    """同一函數處理二元（A1）和多類（A3），結果一致"""
+    # Binary case (A1)
+    a1_bin = {"D001": "YES", "D002": "NO", "D003": "YES", "D004": "NO"}
+    a2_bin = {"D001": "YES", "D002": "NO", "D003": "YES", "D004": "NO"}
+    k_bin, _ = cohens_kappa(a1_bin, a2_bin)
+    assert k_bin == 1.0
+
+    # Multi-class case (A3)
+    a1_mul = {"D001": "joy", "D002": "anger", "D003": "joy", "D004": "anger"}
+    a2_mul = {"D001": "joy", "D002": "anger", "D003": "joy", "D004": "anger"}
+    k_mul, _ = cohens_kappa(a1_mul, a2_mul)
+    assert k_mul == 1.0

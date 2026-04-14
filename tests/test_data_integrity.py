@@ -1,6 +1,6 @@
 """
 測試：資料層完整性
-驗證 annotation_200_vad_distortion.csv 的正確性
+驗證 master_400_with_vad.csv 的正確性
 
 執行：pytest tests/test_data_integrity.py -v
 """
@@ -8,9 +8,9 @@ import csv, json, math, pytest
 from pathlib import Path
 
 ROOT   = Path(__file__).parent.parent
-MASTER = ROOT / "data" / "master_200_with_vad.csv"
-DIST   = ROOT / "data" / "samples_distortion_100.csv"
-SAFE   = ROOT / "data" / "samples_safe_100.csv"
+MASTER = ROOT / "data" / "master_400_with_vad.csv"
+DIST   = ROOT / "data" / "samples_distortion_200.csv"
+SAFE   = ROOT / "data" / "samples_safe_200.csv"
 ANN_A  = ROOT / "results" / "annotator_A" / "task_annotator_A.csv"
 
 # ── VAD 座標（論文 Table 1）──────────────────────────────────────────
@@ -51,7 +51,7 @@ def annotator_rows():
 #  TC-D-01  總樣本數 = 200
 # ════════════════════════════════════════════════════════
 def test_total_count(master_rows):
-    assert len(master_rows) == 200, f"Expected 200 rows, got {len(master_rows)}"
+    assert len(master_rows) == 400, f"Expected 400 rows, got {len(master_rows)}"
 
 
 # ════════════════════════════════════════════════════════
@@ -60,8 +60,8 @@ def test_total_count(master_rows):
 def test_group_split(master_rows):
     dist = [r for r in master_rows if r["group"] == "DISTORTION"]
     safe = [r for r in master_rows if r["group"] == "SAFE"]
-    assert len(dist) == 100
-    assert len(safe) == 100
+    assert len(dist) == 200
+    assert len(safe) == 200
 
 
 # ════════════════════════════════════════════════════════
@@ -130,8 +130,8 @@ def test_malformation_distribution(master_rows):
     from collections import Counter
     counts = Counter(r["malformation_type"] for r in master_rows)
     for malform_type, count in counts.items():
-        assert count == 25, \
-            f"malformation_type '{malform_type}' has {count} rows, expected 25"
+        assert count == 50, \
+            f"malformation_type '{malform_type}' has {count} rows, expected 50"
 
 
 # ════════════════════════════════════════════════════════
@@ -178,9 +178,9 @@ def test_raw_output_is_malformed(master_rows):
             pass  # Expected
     assert not errors, "Strict-malform rows parsed as valid JSON:\n" + "\n".join(errors[:5])
 
-    # 三種嚴格類型各 25 筆，共 75 筆應解析失敗
+    # 三種嚴格類型各 50 筆，共 150 筆應解析失敗
     strict_rows = [r for r in master_rows if r["malformation_type"] in strict_malform]
-    assert len(strict_rows) == 75, f"Expected 75 strict-malform rows, got {len(strict_rows)}"
+    assert len(strict_rows) == 150, f"Expected 150 strict-malform rows, got {len(strict_rows)}"
 
 
 # ════════════════════════════════════════════════════════
@@ -199,7 +199,7 @@ def test_annotator_file_hides_sensitive_cols(annotator_rows):
 #  TC-D-13  標注者作業檔樣本數 = 200
 # ════════════════════════════════════════════════════════
 def test_annotator_file_count(annotator_rows):
-    assert len(annotator_rows) == 200
+    assert len(annotator_rows) == 400
 
 
 # ════════════════════════════════════════════════════════

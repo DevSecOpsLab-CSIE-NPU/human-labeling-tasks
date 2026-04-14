@@ -185,9 +185,9 @@ def test_three_annotators_isolated():
 
 
 # ════════════════════════════════════════════════════════
-#  TC-GAS-04  200 筆全部寫入後，分頁有 201 行（1 header + 200 data）
+#  TC-GAS-04  400 筆全部寫入後，分頁有 401 行（1 header + 400 data）
 # ════════════════════════════════════════════════════════
-def test_full_200_samples_write():
+def test_full_400_samples_write():
     import csv
     from pathlib import Path
 
@@ -210,8 +210,8 @@ def test_full_200_samples_write():
         }, ss)
 
     sheet = ss.getSheetByName("annotator_A")
-    assert len(sheet._rows) == 201, \
-        f"Expected 201 rows (1 header + 200 data), got {len(sheet._rows)}"
+    assert len(sheet._rows) == 401, \
+        f"Expected 401 rows (1 header + 400 data), got {len(sheet._rows)}"
 
 
 # ════════════════════════════════════════════════════════
