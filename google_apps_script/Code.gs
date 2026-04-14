@@ -12,7 +12,7 @@
  */
 
 // ── 設定 ──────────────────────────────────────────────────────────────
-const SPREADSHEET_ID = "YOUR_SPREADSHEET_ID_HERE";  // ← 填入你的 Spreadsheet ID
+const SPREADSHEET_ID = "1UNSxHUBvipUrb38flaGjtVRQBGzq4ZP8-zM6DfTsI_4";  // ← 填入你的 Spreadsheet ID
 
 // 每個分頁的欄位標題
 const HEADERS = [

@@ -49,7 +49,7 @@ check("標注者作業檔 A/B/C 都存在",
 
 print("\n[2/4] 前端檔案")
 check("web/index.html 存在",
-      lambda: ((ROOT/"web"/"index.html").exists(), "found"))
+      lambda: ((ROOT/"docs"/"index.html").exists(), "found"))
 
 check("web/data.js 存在（200 筆 JSON）",
       lambda: (
@@ -65,7 +65,7 @@ check("APPS_SCRIPT_URL 已設定（非預設值）",
               "configured" if "YOUR_SCRIPT_ID" not in url else f"⚠ still placeholder"
           ))(
               next(
-                  (l for l in (ROOT/"web"/"index.html").read_text().splitlines()
+                  (l for l in (ROOT/"docs"/"index.html").read_text().splitlines()
                    if "APPS_SCRIPT_URL" in l and "const" in l),
                   ""
               )
