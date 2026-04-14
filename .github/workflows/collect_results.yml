@@ -37,7 +37,7 @@ jobs:
           cat collect_output.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
         env:
-          APPS_SCRIPT_URL: ${{ secrets.APPS_SCRIPT_URL }}
+          APPS_SCRIPT_URL: ${{ secrets.APPS_SCRIPT_URL || '' }}
           ANNOTATORS: ${{ github.event.inputs.annotators || 'A,B,C' }}
 
       - name: Commit and push if changed

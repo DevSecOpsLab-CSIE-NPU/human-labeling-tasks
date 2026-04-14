@@ -21,8 +21,7 @@ from pathlib import Path
 import requests
 
 # ── 設定 ──────────────────────────────────────────────────────────────────
-APPS_SCRIPT_URL = os.environ.get(
-    "APPS_SCRIPT_URL",
+APPS_SCRIPT_URL = os.environ.get("APPS_SCRIPT_URL") or (
     "https://script.google.com/macros/s/"
     "AKfycbw8kmgAVT-EAKtAxzWhayRNmeydw9uoghciJsFeZTMMFTqb-gZSdqtKxjzrEukaAALwEw/exec"
 )
