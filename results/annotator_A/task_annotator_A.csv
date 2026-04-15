@@ -1,2 +1,3 @@
 sample_id,annotator,userName,llm_emotion,repaired_emotion,A1_is_distorted,A2_severity,A3_correct_emotion,annotator_notes,timestamp,domain
-D001,A,Aug,joy,sadness,NO,Severe,joy,Aug,2026-04-14T02:07:57.690Z,Amazon
+D001,A,aug,joy,sadness,NO,Severe,joy,,2026-04-15T04:38:09.953Z,Amazon
+D002,A,aug,joy,sadness,NO,Severe,joy,,2026-04-15T04:38:44.573Z,Amazon
