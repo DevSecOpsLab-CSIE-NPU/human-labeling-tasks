@@ -13,7 +13,8 @@ import csv, os, math
 from itertools import combinations
 
 RESULTS_DIR = os.path.join(os.path.dirname(__file__), "../results")
-ANNOTATORS = ["annotator_A", "annotator_B", "annotator_C"]
+ANNOTATORS = ["annotator_A", "annotator_B", "annotator_C",
+               "annotator_D", "annotator_E", "annotator_F"]
 
 
 def load_annotations(annotator):
@@ -78,11 +79,65 @@ def interpret(k):
     return "Almost Perfect"
 
 
+def krippendorff_alpha_nominal(data: dict) -> tuple:
+    """
+    Compute Krippendorff's α for nominal data with partial overlap.
+    data: {annotator: {unit_id: label}}
+    Returns (alpha, n_valid_units)
+    """
+    annotators = list(data.keys())
+    all_units = sorted(set().union(*[set(d.keys()) for d in data.values()]))
+    units = [u for u in all_units if sum(1 for a in annotators if data[a].get(u)) >= 2]
+    n_valid = len(units)
+    if n_valid < 2:
+        return None, n_valid
+
+    all_labels = sorted(set(v for d in data.values() for v in d.values() if v))
+    cat_idx = {c: i for i, c in enumerate(all_labels)}
+    n_cat = len(all_labels)
+
+    o = [[0.0] * n_cat for _ in range(n_cat)]
+    for unit in units:
+        labels = [data[a][unit] for a in annotators if data[a].get(unit)]
+        mu = len(labels)
+        for i in range(mu):
+            for j in range(mu):
+                if i != j:
+                    o[cat_idx[labels[i]]][cat_idx[labels[j]]] += 1.0 / (mu - 1)
+
+    n = sum(sum(row) for row in o)
+    if n == 0:
+        return None, n_valid
+
+    marginals = [sum(o[c][k] for k in range(n_cat)) for c in range(n_cat)]
+    D_o = sum(o[c1][c2] for c1 in range(n_cat) for c2 in range(n_cat) if c1 != c2) / n
+    D_e = sum(
+        marginals[c1] * marginals[c2]
+        for c1 in range(n_cat) for c2 in range(n_cat) if c1 != c2
+    ) / (n * (n - 1))
+
+    if D_e == 0:
+        return 1.0, n_valid
+    return round(1 - D_o / D_e, 4), n_valid
+
+
+# 非重疊對（數學限制）
+NO_OVERLAP_PAIRS = {
+    ("annotator_A", "annotator_F"),
+    ("annotator_B", "annotator_E"),
+    ("annotator_C", "annotator_D"),
+}
+
+
 def _print_kappa_section(title: str, field_data: dict[str, dict]):
     """印出某欄位（A1 或 A3）的 pairwise κ 表格。"""
     print(f"\n=== {title} ===")
     kappas = []
     for ann1, ann2 in combinations(ANNOTATORS, 2):
+        pair = tuple(sorted([ann1, ann2]))
+        if pair in NO_OVERLAP_PAIRS:
+            print(f"  {ann1} vs {ann2}: 無重疊樣本（rotating design）— 跳過")
+            continue
         d1, d2 = field_data.get(ann1, {}), field_data.get(ann2, {})
         if not d1 or not d2:
             continue
@@ -90,14 +145,16 @@ def _print_kappa_section(title: str, field_data: dict[str, dict]):
         kappas.append(k)
         print(f"  {ann1} vs {ann2}: κ = {k}  ({interpret(k)})  n={n}")
 
-    if len(kappas) == 3:
-        avg_k = sum(kappas) / len(kappas)
-        print(f"\n  Average κ: {avg_k:.4f}  ({interpret(avg_k)})")
-        target = 0.70
-        if avg_k >= target:
-            print(f"  ✓ TARGET MET: κ ≥ {target}")
-        else:
-            print(f"  ✗ Below target ({target}). Gap: {target - avg_k:.4f}")
+    if kappas:
+        valid_kappas = [k for k in kappas if k is not None]
+        if valid_kappas:
+            avg_k = sum(valid_kappas) / len(valid_kappas)
+            print(f"\n  Average κ: {avg_k:.4f}  ({interpret(avg_k)})  ({len(valid_kappas)} pairs)")
+            target = 0.70
+            if avg_k >= target:
+                print(f"  ✓ TARGET MET: κ ≥ {target}")
+            else:
+                print(f"  ✗ Below target ({target}). Gap: {target - avg_k:.4f}")
     return kappas
 
 
@@ -179,6 +236,11 @@ if __name__ == "__main__":
             print(f"  CONFLICT:          {len(conflicts_a3)}")
     else:
         print("\n[A3] No annotations yet — skipping.")
+
+    # ── Krippendorff's α（A1，6 人 partial overlap）─────────────────────
+    print("\n=== Krippendorff's α（A1，所有 6 人，partial overlap）===")
+    alpha_a1, n = krippendorff_alpha_nominal(a1_data)
+    print(f"  α = {alpha_a1}  ({interpret(alpha_a1)})  n={n} valid units")
 
     # ── 寫出 adjudicated CSV ──────────────────────────────────────────────
     if adj_a1:

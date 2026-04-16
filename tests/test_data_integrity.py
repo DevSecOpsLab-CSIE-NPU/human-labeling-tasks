@@ -199,7 +199,7 @@ def test_annotator_file_hides_sensitive_cols(annotator_rows):
 #  TC-D-13  標注者作業檔樣本數 = 200
 # ════════════════════════════════════════════════════════
 def test_annotator_file_count(annotator_rows):
-    assert len(annotator_rows) == 400
+    assert len(annotator_rows) == 200
 
 
 # ════════════════════════════════════════════════════════

@@ -193,6 +193,9 @@
       <option value="A">標注者 A</option>
       <option value="B">標注者 B</option>
       <option value="C">標注者 C</option>
+      <option value="D">標注者 D</option>
+      <option value="E">標注者 E</option>
+      <option value="F">標注者 F</option>
     </select>
 
     <label for="inp-name">你的名字（供記錄用）</label>
@@ -333,6 +336,25 @@
 // ══════════════════════════════════════════════════════
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw8kmgAVT-EAKtAxzWhayRNmeydw9uoghciJsFeZTMMFTqb-gZSdqtKxjzrEukaAALwEw/exec";
 
+// Quarter assignment for rotating overlap
+const QUARTER_ASSIGNMENT = {
+  "A": ["Q1","Q2"], "B": ["Q1","Q3"], "C": ["Q1","Q4"],
+  "D": ["Q2","Q3"], "E": ["Q2","Q4"], "F": ["Q3","Q4"],
+};
+
+function getSamplesForAnnotator(ann) {
+  const quarters = QUARTER_ASSIGNMENT[ann] || ["Q1","Q2","Q3","Q4"];
+  function inQuarter(id, q) {
+    const num = parseInt(id.slice(1));
+    if (q === "Q1") return num >= 1 && num <= 50;
+    if (q === "Q2") return num >= 51 && num <= 100;
+    if (q === "Q3") return num >= 101 && num <= 150;
+    if (q === "Q4") return num >= 151 && num <= 200;
+    return false;
+  }
+  return SAMPLES.filter(s => quarters.some(q => inQuarter(s.id, q)));
+}
+
 // ══════════════════════════════════════════════════════
 //  Emotion options
 // ══════════════════════════════════════════════════════
@@ -347,6 +369,7 @@ const EMOTIONS = [
 // ══════════════════════════════════════════════════════
 let annotator = "", userName = "", current = 0;
 let answers = {};   // { sampleId: { A1, A2, A3, notes } }
+let activeSamples = [];
 const STORAGE_KEY = () => `vad_annot_${annotator}`;
 
 // ══════════════════════════════════════════════════════
@@ -365,14 +388,15 @@ function checkLogin() {
 document.getElementById("btn-start").onclick = () => {
   annotator = selAnnotator.value;
   userName  = inpName.value.trim();
+  activeSamples = getSamplesForAnnotator(annotator);
   // Load saved progress
   const saved = localStorage.getItem(STORAGE_KEY());
   if (saved) answers = JSON.parse(saved);
   // Find first unanswered
   current = 0;
-  for (let i = 0; i < SAMPLES.length; i++) {
-    if (!answers[SAMPLES[i].id]) { current = i; break; }
-    if (i === SAMPLES.length - 1) current = SAMPLES.length - 1;
+  for (let i = 0; i < activeSamples.length; i++) {
+    if (!answers[activeSamples[i].id]) { current = i; break; }
+    if (i === activeSamples.length - 1) current = activeSamples.length - 1;
   }
   document.getElementById("login-screen").style.display = "none";
   document.getElementById("app").style.display = "block";
@@ -397,8 +421,8 @@ function buildEmotionGrid() {
 //  Render current sample
 // ══════════════════════════════════════════════════════
 function render() {
-  if (current >= SAMPLES.length) { showDone(); return; }
-  const s = SAMPLES[current];
+  if (current >= activeSamples.length) { showDone(); return; }
+  const s = activeSamples[current];
 
   document.getElementById("c-text").textContent    = s.text;
   document.getElementById("c-domain").textContent  = s.domain;
@@ -412,11 +436,11 @@ function render() {
   // Update progress
   const done = Object.keys(answers).length;
   document.getElementById("progress-text").textContent =
-    `${done} / ${SAMPLES.length} 已完成`;
+    `${done} / ${activeSamples.length} 已完成`;
   document.getElementById("progress-bar").style.width =
-    (done / SAMPLES.length * 100) + "%";
+    (done / activeSamples.length * 100) + "%";
   document.getElementById("nav-counter").textContent =
-    `第 ${current + 1} / ${SAMPLES.length} 筆`;
+    `第 ${current + 1} / ${activeSamples.length} 筆`;
   document.getElementById("btn-prev").disabled = (current === 0);
 
   // Restore saved answers
@@ -511,7 +535,7 @@ function updateSaveBtn(saved, canSave) {
 //  Save & next
 // ══════════════════════════════════════════════════════
 async function saveAndNext() {
-  const s = SAMPLES[current];
+  const s = activeSamples[current];
   const A1 = getSelected("A1");
   const A2 = getSelected("A2");
   const A3 = getSelected("A3");
@@ -539,7 +563,7 @@ async function saveAndNext() {
   // Advance
   await delay(400);
   current++;
-  if (current >= SAMPLES.length) { showDone(); return; }
+  if (current >= activeSamples.length) { showDone(); return; }
   render();
 }
 
@@ -560,7 +584,7 @@ async function pushToSheets(record) {
 //  Navigation
 // ══════════════════════════════════════════════════════
 function navigate(dir) {
-  current = Math.max(0, Math.min(SAMPLES.length - 1, current + dir));
+  current = Math.max(0, Math.min(activeSamples.length - 1, current + dir));
   render();
 }
 

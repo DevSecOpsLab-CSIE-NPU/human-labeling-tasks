@@ -7,7 +7,7 @@ import math, pytest, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
-from compute_kappa import cohens_kappa, interpret
+from compute_kappa import cohens_kappa, interpret, krippendorff_alpha_nominal
 
 
 # ════════════════════════════════════════════════════════
@@ -226,3 +226,57 @@ def test_cohens_kappa_is_generic():
     a2_mul = {"D001": "joy", "D002": "anger", "D003": "joy", "D004": "anger"}
     k_mul, _ = cohens_kappa(a1_mul, a2_mul)
     assert k_mul == 1.0
+
+
+# ════════════════════════════════════════════════════════
+#  TC-K-14  Krippendorff's α 完全一致 → 1.0
+# ════════════════════════════════════════════════════════
+def test_krippendorff_perfect_agreement():
+    data = {
+        "ann1": {"D001":"NO","D002":"YES","D003":"NO"},
+        "ann2": {"D001":"NO","D002":"YES","D003":"NO"},
+        "ann3": {"D001":"NO","D002":"YES","D003":"NO"},
+    }
+    alpha, n = krippendorff_alpha_nominal(data)
+    assert alpha == 1.0
+    assert n == 3
+
+
+# ════════════════════════════════════════════════════════
+#  TC-K-15  Krippendorff's α partial overlap（不完整重疊也能計算）
+# ════════════════════════════════════════════════════════
+def test_krippendorff_partial_overlap():
+    # ann1 和 ann3 沒有共同樣本，但可以透過 ann2 橋接
+    data = {
+        "ann1": {"D001":"NO","D002":"YES"},
+        "ann2": {"D002":"YES","D003":"NO"},
+        "ann3": {"D003":"NO","D004":"YES"},
+    }
+    alpha, n = krippendorff_alpha_nominal(data)
+    assert alpha is not None
+    assert n >= 2  # D002 和 D003 各有 2 個標注
+
+
+# ════════════════════════════════════════════════════════
+#  TC-K-16  Rotating overlap 6 人設計，每 quarter 3 人，α 可計算
+# ════════════════════════════════════════════════════════
+def test_krippendorff_rotating_design():
+    import random
+    random.seed(42)
+    # 模擬 6 人 rotating overlap：每人標 200 題
+    # 只建 50 題示意
+    data = {}
+    assignments = {
+        "A": list(range(1,26)) + list(range(51,76)),   # Q1+Q2 (25+25)
+        "B": list(range(1,26)) + list(range(101,126)),  # Q1+Q3
+        "C": list(range(1,26)) + list(range(151,176)),  # Q1+Q4
+        "D": list(range(51,76)) + list(range(101,126)), # Q2+Q3
+        "E": list(range(51,76)) + list(range(151,176)), # Q2+Q4
+        "F": list(range(101,126)) + list(range(151,176)),# Q3+Q4
+    }
+    for ann, ids in assignments.items():
+        data[ann] = {f"D{i:03d}": random.choice(["YES","NO"]) for i in ids}
+    alpha, n = krippendorff_alpha_nominal(data)
+    assert alpha is not None, "α should be computable with rotating overlap"
+    assert -1.0 <= alpha <= 1.0
+    assert n == 100  # all 100 simulated samples have exactly 3 annotators

@@ -26,7 +26,7 @@ APPS_SCRIPT_URL = os.environ.get("APPS_SCRIPT_URL") or (
     "AKfycbw8kmgAVT-EAKtAxzWhayRNmeydw9uoghciJsFeZTMMFTqb-gZSdqtKxjzrEukaAALwEw/exec"
 )
 
-ANNOTATORS = [a.strip() for a in os.environ.get("ANNOTATORS", "A,B,C").split(",")]
+ANNOTATORS = [a.strip() for a in os.environ.get("ANNOTATORS", "A,B,C,D,E,F").split(",")]
 
 ROOT     = Path(__file__).parent.parent
 LOG_DIR  = ROOT / "logs"

@@ -40,11 +40,14 @@ check("400 筆樣本完整",
           (list(csv.DictReader(open(ROOT/"data"/"master_400_with_vad.csv"))))
       ))
 
-check("標注者作業檔 A/B/C 都存在",
+check("標注者作業檔 A-F 都存在",
       lambda: (
           all((ROOT/"results"/f"annotator_{x}"/f"task_annotator_{x}.csv").exists()
-              for x in "ABC"),
-          "all 3 found"
+              for x in "ABCDEF"),
+          "all 6 found" if all(
+              (ROOT/"results"/f"annotator_{x}"/f"task_annotator_{x}.csv").exists()
+              for x in "ABCDEF"
+          ) else "some missing"
       ))
 
 print("\n[2/4] 前端檔案")
@@ -119,8 +122,7 @@ if needs_action:
 else:
     print(f"\n  🎉 所有檢查通過！系統已就緒。")
     print(f"\n  標注者連結（部署後）：")
-    print(f"    A: https://devsecopslab-csie-npu.github.io/human-labeling-tasks/?annotator=A")
-    print(f"    B: https://devsecopslab-csie-npu.github.io/human-labeling-tasks/?annotator=B")
-    print(f"    C: https://devsecopslab-csie-npu.github.io/human-labeling-tasks/?annotator=C")
+    for x in "ABCDEF":
+        print(f"    {x}: https://devsecopslab-csie-npu.github.io/human-labeling-tasks/?annotator={x}")
 
 print()
