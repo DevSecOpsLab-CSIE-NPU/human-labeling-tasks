@@ -1,5 +1,5 @@
 sample_id,annotator,userName,llm_emotion,repaired_emotion,A1_is_distorted,A2_severity,A3_correct_emotion,annotator_notes,timestamp,domain
-D001,C,,joy,sadness,,,,,,Amazon
+D001,C,潘宥侖,joy,sadness,NO,Moderate,joy,,2026-04-27T05:30:32.085Z,Amazon
 D002,C,,joy,sadness,,,,,,Amazon
 D003,C,,joy,sadness,,,,,,Amazon
 D004,C,,joy,sadness,,,,,,Amazon
