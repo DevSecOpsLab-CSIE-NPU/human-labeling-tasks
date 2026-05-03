@@ -114,3 +114,4 @@
 {"timestamp": "2026-05-02 20:09 UTC", "annotators": {"A": {"count": 200, "conflicts": []}, "B": {"count": 199, "conflicts": ["  sample_id=D040 被 {'羅小元', '潘為濬'} 標注"]}, "C": {"count": 59, "conflicts": []}}, "total": 458}
 {"timestamp": "2026-05-03 00:14 UTC", "annotators": {"A": {"count": 200, "conflicts": []}, "B": {"count": 199, "conflicts": ["  sample_id=D040 被 {'潘為濬', '羅小元'} 標注"]}, "C": {"count": 59, "conflicts": []}}, "total": 458}
 {"timestamp": "2026-05-03 05:04 UTC", "annotators": {"A": {"count": 200, "conflicts": []}, "B": {"count": 199, "conflicts": ["  sample_id=D040 被 {'羅小元', '潘為濬'} 標注"]}, "C": {"count": 112, "conflicts": []}}, "total": 511}
+{"timestamp": "2026-05-03 08:31 UTC", "annotators": {"A": {"count": 200, "conflicts": []}, "B": {"count": 199, "conflicts": ["  sample_id=D040 被 {'羅小元', '潘為濬'} 標注"]}, "C": {"count": 201, "conflicts": []}}, "total": 600}
