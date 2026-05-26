@@ -1,201 +1,201 @@
 sample_id,annotator,userName,llm_emotion,repaired_emotion,A1_is_distorted,A2_severity,A3_correct_emotion,annotator_notes,timestamp,domain
-D101,F,,annoyance,sadness,,,,,,Reddit
-D102,F,,frustration,sadness,,,,,,Reddit
-D103,F,,contentment,sadness,,,,,,Medical
-D104,F,,joy,sadness,,,,,,Medical
-D105,F,,neutral,sadness,,,,,,Twitter
-D106,F,,neutral,sadness,,,,,,Reddit
-D107,F,,excitement,fear,,,,,,Medical
-D108,F,,excitement,fear,,,,,,Medical
-D109,F,,annoyance,fear,,,,,,Twitter
-D110,F,,anxiety,sadness,,,,,,Reddit
-D111,F,,disgust,anger,,,,,,Twitter
-D112,F,,sadness,anger,,,,,,Twitter
-D113,F,,disgust,anger,,,,,,Yelp
-D114,F,,annoyance,fear,,,,,,Reddit
-D115,F,,fear,anger,,,,,,Yelp
-D116,F,,sadness,anger,,,,,,Yelp
-D117,F,,anxiety,anger,,,,,,Yelp
-D118,F,,disgust,anger,,,,,,Medical
-D119,F,,anxiety,anger,,,,,,Reddit
-D120,F,,excitement,fear,,,,,,Reddit
-D121,F,,sadness,anger,,,,,,Twitter
-D122,F,,excitement,fear,,,,,,Medical
-D123,F,,anxiety,anger,,,,,,Yelp
-D124,F,,disgust,surprise,,,,,,Reddit
-D125,F,,frustration,anger,,,,,,Yelp
-D126,F,,sadness,anger,,,,,,Reddit
-D127,F,,anxiety,sadness,,,,,,Medical
-D128,F,,neutral,sadness,,,,,,Yelp
-D129,F,,excitement,fear,,,,,,Yelp
-D130,F,,joy,fear,,,,,,Medical
-D131,F,,anxiety,sadness,,,,,,Reddit
-D132,F,,neutral,anger,,,,,,Twitter
-D133,F,,excitement,fear,,,,,,Reddit
-D134,F,,anxiety,anger,,,,,,Yelp
-D135,F,,fear,anger,,,,,,Reddit
-D136,F,,annoyance,anger,,,,,,Yelp
-D137,F,,annoyance,sadness,,,,,,Yelp
-D138,F,,joy,fear,,,,,,Reddit
-D139,F,,anxiety,sadness,,,,,,Reddit
-D140,F,,anger,surprise,,,,,,Yelp
-D141,F,,sadness,anger,,,,,,Yelp
-D142,F,,annoyance,anger,,,,,,Medical
-D143,F,,excitement,fear,,,,,,Yelp
-D144,F,,fear,anger,,,,,,Medical
-D145,F,,sadness,anger,,,,,,Yelp
-D146,F,,anxiety,sadness,,,,,,Medical
-D147,F,,disgust,sadness,,,,,,Yelp
-D148,F,,neutral,sadness,,,,,,Reddit
-D149,F,,annoyance,sadness,,,,,,Medical
-D150,F,,neutral,anger,,,,,,Twitter
-D151,F,,neutral,anger,,,,,,Twitter
-D152,F,,contentment,sadness,,,,,,Reddit
-D153,F,,contentment,sadness,,,,,,Medical
-D154,F,,fear,anger,,,,,,Yelp
-D155,F,,anxiety,fear,,,,,,Reddit
-D156,F,,excitement,fear,,,,,,Twitter
-D157,F,,sadness,anger,,,,,,Medical
-D158,F,,frustration,surprise,,,,,,Reddit
-D159,F,,excitement,fear,,,,,,Twitter
-D160,F,,annoyance,surprise,,,,,,Reddit
-D161,F,,contentment,sadness,,,,,,Reddit
-D162,F,,anxiety,fear,,,,,,Yelp
-D163,F,,fear,anger,,,,,,Yelp
-D164,F,,anger,surprise,,,,,,Reddit
-D165,F,,disgust,sadness,,,,,,Medical
-D166,F,,annoyance,anger,,,,,,Yelp
-D167,F,,neutral,sadness,,,,,,Medical
-D168,F,,excitement,fear,,,,,,Twitter
-D169,F,,excitement,fear,,,,,,Medical
-D170,F,,anger,surprise,,,,,,Twitter
-D171,F,,fear,anger,,,,,,Medical
-D172,F,,anger,surprise,,,,,,Yelp
-D173,F,,annoyance,anger,,,,,,Yelp
-D174,F,,contentment,sadness,,,,,,Reddit
-D175,F,,sadness,anger,,,,,,Reddit
-D176,F,,anxiety,fear,,,,,,Yelp
-D177,F,,neutral,sadness,,,,,,Reddit
-D178,F,,annoyance,surprise,,,,,,Reddit
-D179,F,,anxiety,fear,,,,,,Twitter
-D180,F,,joy,fear,,,,,,Reddit
-D181,F,,contentment,sadness,,,,,,Twitter
-D182,F,,neutral,sadness,,,,,,Twitter
-D183,F,,neutral,anger,,,,,,Yelp
-D184,F,,disgust,anger,,,,,,Twitter
-D185,F,,fear,anger,,,,,,Twitter
-D186,F,,anxiety,fear,,,,,,Reddit
-D187,F,,excitement,fear,,,,,,Twitter
-D188,F,,disgust,anger,,,,,,Twitter
-D189,F,,neutral,anger,,,,,,Yelp
-D190,F,,anger,surprise,,,,,,Twitter
-D191,F,,annoyance,anger,,,,,,Twitter
-D192,F,,contentment,sadness,,,,,,Twitter
-D193,F,,fear,anger,,,,,,Reddit
-D194,F,,contentment,sadness,,,,,,Medical
-D195,F,,fear,anger,,,,,,Twitter
-D196,F,,annoyance,sadness,,,,,,Reddit
-D197,F,,excitement,fear,,,,,,Reddit
-D198,F,,frustration,sadness,,,,,,Medical
-D199,F,,neutral,anger,,,,,,Yelp
-D200,F,,anxiety,surprise,,,,,,Medical
-S101,F,,anger,disgust,,,,,,Medical
-S102,F,,frustration,disgust,,,,,,Twitter
-S103,F,,sadness,fear,,,,,,Yelp
-S104,F,,anger,disgust,,,,,,Twitter
-S105,F,,contentment,joy,,,,,,Twitter
-S106,F,,contentment,joy,,,,,,Yelp
-S107,F,,disgust,frustration,,,,,,Medical
-S108,F,,disgust,annoyance,,,,,,Medical
-S109,F,,joy,contentment,,,,,,Reddit
-S110,F,,disgust,annoyance,,,,,,Medical
-S111,F,,anger,disgust,,,,,,Reddit
-S112,F,,neutral,contentment,,,,,,Yelp
-S113,F,,anxiety,fear,,,,,,Medical
-S114,F,,anxiety,fear,,,,,,Medical
-S115,F,,sadness,neutral,,,,,,Reddit
-S116,F,,disgust,annoyance,,,,,,Yelp
-S117,F,,fear,anxiety,,,,,,Medical
-S118,F,,disgust,anger,,,,,,Twitter
-S119,F,,disgust,annoyance,,,,,,Reddit
-S120,F,,annoyance,frustration,,,,,,Reddit
-S121,F,,annoyance,disgust,,,,,,Yelp
-S122,F,,annoyance,disgust,,,,,,Yelp
-S123,F,,frustration,annoyance,,,,,,Reddit
-S124,F,,contentment,neutral,,,,,,Twitter
-S125,F,,sadness,fear,,,,,,Twitter
-S126,F,,neutral,sadness,,,,,,Twitter
-S127,F,,contentment,joy,,,,,,Medical
-S128,F,,annoyance,disgust,,,,,,Yelp
-S129,F,,anxiety,fear,,,,,,Twitter
-S130,F,,contentment,joy,,,,,,Twitter
-S131,F,,contentment,neutral,,,,,,Medical
-S132,F,,anxiety,fear,,,,,,Yelp
-S133,F,,contentment,joy,,,,,,Medical
-S134,F,,neutral,sadness,,,,,,Yelp
-S135,F,,joy,surprise,,,,,,Twitter
-S136,F,,fear,sadness,,,,,,Medical
-S137,F,,annoyance,disgust,,,,,,Yelp
-S138,F,,anger,disgust,,,,,,Medical
-S139,F,,fear,anxiety,,,,,,Yelp
-S140,F,,annoyance,disgust,,,,,,Medical
-S141,F,,annoyance,frustration,,,,,,Twitter
-S142,F,,fear,anxiety,,,,,,Medical
-S143,F,,disgust,annoyance,,,,,,Yelp
-S144,F,,anxiety,fear,,,,,,Yelp
-S145,F,,contentment,neutral,,,,,,Twitter
-S146,F,,annoyance,frustration,,,,,,Twitter
-S147,F,,disgust,frustration,,,,,,Twitter
-S148,F,,sadness,neutral,,,,,,Reddit
-S149,F,,contentment,neutral,,,,,,Twitter
-S150,F,,anxiety,fear,,,,,,Medical
-S151,F,,disgust,annoyance,,,,,,Yelp
-S152,F,,neutral,sadness,,,,,,Yelp
-S153,F,,annoyance,disgust,,,,,,Twitter
-S154,F,,annoyance,frustration,,,,,,Medical
-S155,F,,contentment,joy,,,,,,Reddit
-S156,F,,contentment,joy,,,,,,Twitter
-S157,F,,joy,contentment,,,,,,Twitter
-S158,F,,contentment,joy,,,,,,Twitter
-S159,F,,anger,disgust,,,,,,Yelp
-S160,F,,frustration,annoyance,,,,,,Medical
-S161,F,,contentment,neutral,,,,,,Medical
-S162,F,,anger,disgust,,,,,,Twitter
-S163,F,,anxiety,fear,,,,,,Reddit
-S164,F,,sadness,fear,,,,,,Reddit
-S165,F,,contentment,joy,,,,,,Twitter
-S166,F,,frustration,annoyance,,,,,,Medical
-S167,F,,anxiety,fear,,,,,,Reddit
-S168,F,,frustration,disgust,,,,,,Yelp
-S169,F,,annoyance,frustration,,,,,,Yelp
-S170,F,,fear,anxiety,,,,,,Medical
-S171,F,,neutral,contentment,,,,,,Yelp
-S172,F,,anxiety,fear,,,,,,Medical
-S173,F,,neutral,contentment,,,,,,Yelp
-S174,F,,frustration,annoyance,,,,,,Yelp
-S175,F,,sadness,fear,,,,,,Reddit
-S176,F,,anxiety,fear,,,,,,Medical
-S177,F,,fear,sadness,,,,,,Reddit
-S178,F,,joy,contentment,,,,,,Twitter
-S179,F,,fear,anxiety,,,,,,Medical
-S180,F,,disgust,annoyance,,,,,,Yelp
-S181,F,,annoyance,disgust,,,,,,Reddit
-S182,F,,anxiety,fear,,,,,,Yelp
-S183,F,,anger,disgust,,,,,,Reddit
-S184,F,,anger,disgust,,,,,,Reddit
-S185,F,,disgust,annoyance,,,,,,Yelp
-S186,F,,neutral,sadness,,,,,,Twitter
-S187,F,,fear,anxiety,,,,,,Twitter
-S188,F,,anger,disgust,,,,,,Twitter
-S189,F,,disgust,frustration,,,,,,Reddit
-S190,F,,anger,disgust,,,,,,Medical
-S191,F,,frustration,disgust,,,,,,Medical
-S192,F,,frustration,annoyance,,,,,,Twitter
-S193,F,,anxiety,fear,,,,,,Reddit
-S194,F,,annoyance,disgust,,,,,,Medical
-S195,F,,annoyance,disgust,,,,,,Reddit
-S196,F,,annoyance,frustration,,,,,,Medical
-S197,F,,frustration,disgust,,,,,,Medical
-S198,F,,sadness,neutral,,,,,,Medical
-S199,F,,joy,contentment,,,,,,Twitter
-S200,F,,sadness,fear,,,,,,Reddit
+D101,F,AUGUST CHAO,annoyance,sadness,YES,None,frustration,,2026-05-26T17:52:35.390Z,Reddit
+D102,F,AUGUST CHAO,frustration,sadness,YES,Slight,frustration,,2026-05-26T17:55:45.556Z,Reddit
+D103,F,AUGUST CHAO,contentment,sadness,NO,Moderate,contentment,,2026-05-26T17:56:40.973Z,Medical
+D104,F,AUGUST CHAO,joy,sadness,NO,Severe,joy,,2026-05-26T17:57:40.964Z,Medical
+D105,F,AUGUST CHAO,neutral,sadness,NO,Moderate,neutral,,2026-05-26T17:59:24.781Z,Twitter
+D106,F,AUGUST CHAO,neutral,sadness,NO,Moderate,neutral,,2026-05-26T17:59:42.890Z,Reddit
+D107,F,AUGUST CHAO,excitement,fear,NO,Moderate,excitement,,2026-05-26T18:00:15.539Z,Medical
+D108,F,AUGUST CHAO,excitement,fear,NO,Moderate,excitement,,2026-05-26T18:00:42.597Z,Medical
+D109,F,AUGUST CHAO,annoyance,fear,NO,Moderate,annoyance,,2026-05-26T18:00:58.397Z,Twitter
+D110,F,AUGUST CHAO,anxiety,sadness,NO,Slight,anxiety,,2026-05-26T18:01:11.189Z,Reddit
+D111,F,AUGUST CHAO,disgust,anger,NO,Slight,disgust,,2026-05-26T18:01:21.514Z,Twitter
+D112,F,AUGUST CHAO,sadness,anger,NO,Moderate,sadness,,2026-05-26T18:01:37.305Z,Twitter
+D113,F,AUGUST CHAO,disgust,anger,NO,Slight,disgust,,2026-05-26T18:02:02.639Z,Yelp
+D114,F,AUGUST CHAO,annoyance,fear,NO,Moderate,annoyance,,2026-05-26T18:02:11.597Z,Reddit
+D115,F,AUGUST CHAO,fear,anger,NO,Moderate,fear,,2026-05-26T18:02:23.572Z,Yelp
+D116,F,AUGUST CHAO,sadness,anger,NO,Moderate,sadness,,2026-05-26T18:02:34.455Z,Yelp
+D117,F,AUGUST CHAO,anxiety,anger,NO,Slight,anxiety,,2026-05-26T18:02:40.913Z,Yelp
+D118,F,AUGUST CHAO,disgust,anger,NO,Moderate,disgust,,2026-05-26T18:02:59.448Z,Medical
+D119,F,AUGUST CHAO,anxiety,anger,NO,Moderate,anxiety,,2026-05-26T18:03:06.980Z,Reddit
+D120,F,AUGUST CHAO,excitement,fear,NO,Severe,excitement,,2026-05-26T18:03:21.013Z,Reddit
+D121,F,AUGUST CHAO,sadness,anger,NO,Slight,sadness,,2026-05-26T18:03:32.463Z,Twitter
+D122,F,AUGUST CHAO,excitement,fear,NO,Severe,excitement,,2026-05-26T18:03:42.680Z,Medical
+D123,F,AUGUST CHAO,anxiety,anger,NO,Moderate,anxiety,,2026-05-26T18:04:01.439Z,Yelp
+D124,F,AUGUST CHAO,disgust,surprise,NO,Severe,disgust,,2026-05-26T18:04:09.238Z,Reddit
+D125,F,AUGUST CHAO,frustration,anger,NO,Moderate,frustration,,2026-05-26T18:04:23.963Z,Yelp
+D126,F,AUGUST CHAO,sadness,anger,NO,Moderate,sadness,,2026-05-26T18:04:35.355Z,Reddit
+D127,F,AUGUST CHAO,anxiety,sadness,NO,Moderate,anxiety,,2026-05-26T18:04:41.514Z,Medical
+D128,F,AUGUST CHAO,neutral,sadness,NO,Severe,neutral,,2026-05-26T18:04:49.880Z,Yelp
+D129,F,AUGUST CHAO,excitement,fear,NO,Severe,excitement,,2026-05-26T18:05:00.755Z,Yelp
+D130,F,AUGUST CHAO,joy,fear,NO,Severe,joy,,2026-05-26T18:05:09.047Z,Medical
+D131,F,AUGUST CHAO,anxiety,sadness,NO,Slight,anxiety,,2026-05-26T18:05:19.247Z,Reddit
+D132,F,AUGUST CHAO,neutral,anger,NO,Severe,neutral,,2026-05-26T18:05:33.338Z,Twitter
+D133,F,AUGUST CHAO,excitement,fear,NO,Severe,excitement,,2026-05-26T18:05:46.947Z,Reddit
+D134,F,AUGUST CHAO,anxiety,anger,NO,Moderate,anxiety,,2026-05-26T18:05:58.997Z,Yelp
+D135,F,AUGUST CHAO,fear,anger,NO,Moderate,fear,,2026-05-26T18:06:15.440Z,Reddit
+D136,F,AUGUST CHAO,annoyance,anger,NO,Moderate,annoyance,,2026-05-26T18:06:52.222Z,Yelp
+D137,F,AUGUST CHAO,annoyance,sadness,NO,Moderate,annoyance,,2026-05-26T18:06:53.830Z,Yelp
+D138,F,AUGUST CHAO,joy,fear,NO,Severe,joy,,2026-05-26T18:07:04.288Z,Reddit
+D139,F,AUGUST CHAO,anxiety,sadness,NO,Moderate,anxiety,,2026-05-26T18:07:24.455Z,Reddit
+D140,F,AUGUST CHAO,anger,surprise,NO,Severe,anger,,2026-05-26T18:07:39.081Z,Yelp
+D141,F,AUGUST CHAO,sadness,anger,NO,Moderate,sadness,,2026-05-26T18:07:52.822Z,Yelp
+D142,F,AUGUST CHAO,annoyance,anger,NO,Moderate,annoyance,,2026-05-26T18:08:02.263Z,Medical
+D143,F,AUGUST CHAO,excitement,fear,NO,Severe,excitement,,2026-05-26T18:08:15.330Z,Yelp
+D144,F,AUGUST CHAO,fear,anger,NO,Moderate,fear,,2026-05-26T18:08:24.130Z,Medical
+D145,F,AUGUST CHAO,sadness,anger,NO,Moderate,sadness,,2026-05-26T18:08:31.930Z,Yelp
+D146,F,AUGUST CHAO,anxiety,sadness,NO,Slight,anxiety,,2026-05-26T18:08:43.080Z,Medical
+D147,F,AUGUST CHAO,disgust,sadness,NO,Moderate,disgust,,2026-05-26T18:09:02.822Z,Yelp
+D148,F,AUGUST CHAO,neutral,sadness,NO,Moderate,neutral,,2026-05-26T18:09:21.072Z,Reddit
+D149,F,AUGUST CHAO,annoyance,sadness,NO,Moderate,annoyance,,2026-05-26T18:09:36.355Z,Medical
+D150,F,AUGUST CHAO,neutral,anger,NO,Severe,neutral,,2026-05-26T18:09:48.513Z,Twitter
+D151,F,AUGUST CHAO,neutral,anger,NO,Moderate,neutral,,2026-05-26T18:09:58.538Z,Twitter
+D152,F,AUGUST CHAO,contentment,sadness,NO,Severe,contentment,,2026-05-26T18:10:06.771Z,Reddit
+D153,F,AUGUST CHAO,contentment,sadness,NO,Severe,contentment,,2026-05-26T18:10:21.746Z,Medical
+D154,F,AUGUST CHAO,fear,anger,NO,Moderate,fear,,2026-05-26T18:10:28.605Z,Yelp
+D155,F,AUGUST CHAO,anxiety,fear,NO,Moderate,anxiety,,2026-05-26T18:10:35.155Z,Reddit
+D156,F,AUGUST CHAO,excitement,fear,NO,Severe,excitement,,2026-05-26T18:10:43.846Z,Twitter
+D157,F,AUGUST CHAO,sadness,anger,NO,Moderate,sadness,,2026-05-26T18:10:52.589Z,Medical
+D158,F,AUGUST CHAO,frustration,surprise,NO,Severe,frustration,,2026-05-26T18:11:08.338Z,Reddit
+D159,F,AUGUST CHAO,excitement,fear,NO,Severe,excitement,,2026-05-26T18:11:15.780Z,Twitter
+D160,F,AUGUST CHAO,annoyance,surprise,NO,Severe,annoyance,,2026-05-26T18:11:23.463Z,Reddit
+D161,F,AUGUST CHAO,contentment,sadness,NO,Severe,contentment,,2026-05-26T18:11:41.838Z,Reddit
+D162,F,AUGUST CHAO,anxiety,fear,NO,Moderate,anxiety,,2026-05-26T18:11:55.071Z,Yelp
+D163,F,AUGUST CHAO,fear,anger,NO,Moderate,fear,,2026-05-26T18:12:04.729Z,Yelp
+D164,F,AUGUST CHAO,anger,surprise,NO,Severe,anger,,2026-05-26T18:12:11.555Z,Reddit
+D165,F,AUGUST CHAO,disgust,sadness,NO,Moderate,disgust,,2026-05-26T18:12:21.813Z,Medical
+D166,F,AUGUST CHAO,annoyance,anger,NO,Moderate,annoyance,,2026-05-26T18:12:31.138Z,Yelp
+D167,F,AUGUST CHAO,neutral,sadness,NO,Slight,neutral,,2026-05-26T18:12:44.129Z,Medical
+D168,F,AUGUST CHAO,excitement,fear,NO,Severe,excitement,,2026-05-26T18:12:57.871Z,Twitter
+D169,F,AUGUST CHAO,excitement,fear,NO,Severe,excitement,,2026-05-26T18:13:12.288Z,Medical
+D170,F,AUGUST CHAO,anger,surprise,NO,Severe,anger,,2026-05-26T18:13:21.079Z,Twitter
+D171,F,AUGUST CHAO,fear,anger,NO,Moderate,fear,,2026-05-26T18:13:29.647Z,Medical
+D172,F,AUGUST CHAO,anger,surprise,NO,Severe,anger,,2026-05-26T18:13:37.538Z,Yelp
+D173,F,AUGUST CHAO,annoyance,anger,NO,Moderate,annoyance,,2026-05-26T18:13:52.612Z,Yelp
+D174,F,AUGUST CHAO,contentment,sadness,NO,Severe,contentment,,2026-05-26T18:14:02.804Z,Reddit
+D175,F,AUGUST CHAO,sadness,anger,NO,Moderate,sadness,,2026-05-26T18:14:13.929Z,Reddit
+D176,F,AUGUST CHAO,anxiety,fear,NO,Moderate,anxiety,,2026-05-26T18:14:27.996Z,Yelp
+D177,F,AUGUST CHAO,neutral,sadness,NO,Moderate,neutral,,2026-05-26T18:14:37.396Z,Reddit
+D178,F,AUGUST CHAO,annoyance,surprise,NO,Moderate,annoyance,,2026-05-26T18:14:48.174Z,Reddit
+D179,F,AUGUST CHAO,anxiety,fear,NO,Moderate,anxiety,,2026-05-26T18:15:02.891Z,Twitter
+D180,F,AUGUST CHAO,joy,fear,NO,Moderate,joy,,2026-05-26T18:15:17.141Z,Reddit
+D181,F,AUGUST CHAO,contentment,sadness,NO,Slight,contentment,,2026-05-26T18:15:28.691Z,Twitter
+D182,F,AUGUST CHAO,neutral,sadness,NO,Moderate,neutral,,2026-05-26T18:15:38.158Z,Twitter
+D183,F,AUGUST CHAO,neutral,anger,NO,Moderate,neutral,,2026-05-26T18:15:43.841Z,Yelp
+D184,F,AUGUST CHAO,disgust,anger,NO,Moderate,disgust,,2026-05-26T18:15:57.432Z,Twitter
+D185,F,AUGUST CHAO,fear,anger,NO,Slight,fear,,2026-05-26T18:16:04.491Z,Twitter
+D186,F,AUGUST CHAO,anxiety,fear,NO,Moderate,anxiety,,2026-05-26T18:16:14.000Z,Reddit
+D187,F,AUGUST CHAO,excitement,fear,NO,Moderate,excitement,,2026-05-26T18:16:27.008Z,Twitter
+D188,F,AUGUST CHAO,disgust,anger,NO,Moderate,disgust,,2026-05-26T18:16:45.208Z,Twitter
+D189,F,AUGUST CHAO,neutral,anger,NO,Moderate,neutral,,2026-05-26T18:16:57.555Z,Yelp
+D190,F,AUGUST CHAO,anger,surprise,NO,Moderate,anger,,2026-05-26T18:17:20.684Z,Twitter
+D191,F,AUGUST CHAO,annoyance,anger,NO,Moderate,annoyance,,2026-05-26T18:17:27.869Z,Twitter
+D192,F,AUGUST CHAO,contentment,sadness,NO,Severe,contentment,,2026-05-26T18:17:35.875Z,Twitter
+D193,F,AUGUST CHAO,fear,anger,NO,Severe,fear,,2026-05-26T18:17:54.826Z,Reddit
+D194,F,AUGUST CHAO,contentment,sadness,NO,Moderate,contentment,,2026-05-26T18:18:01.542Z,Medical
+D195,F,AUGUST CHAO,fear,anger,NO,Moderate,fear,,2026-05-26T18:18:05.476Z,Twitter
+D196,F,AUGUST CHAO,annoyance,sadness,NO,Moderate,annoyance,,2026-05-26T18:18:12.609Z,Reddit
+D197,F,AUGUST CHAO,excitement,fear,NO,Moderate,excitement,,2026-05-26T18:18:23.909Z,Reddit
+D198,F,AUGUST CHAO,frustration,sadness,NO,Moderate,frustration,,2026-05-26T18:18:33.776Z,Medical
+D199,F,AUGUST CHAO,neutral,anger,NO,Severe,neutral,,2026-05-26T18:18:39.493Z,Yelp
+D200,F,AUGUST CHAO,anxiety,surprise,NO,Moderate,anxiety,,2026-05-26T18:18:49.726Z,Medical
+S101,F,AUGUST CHAO,anger,disgust,NO,Moderate,anger,,2026-05-26T18:19:04.668Z,Medical
+S102,F,AUGUST CHAO,frustration,disgust,NO,Moderate,frustration,,2026-05-26T18:19:11.668Z,Twitter
+S103,F,AUGUST CHAO,sadness,fear,NO,Moderate,sadness,,2026-05-26T18:19:19.643Z,Yelp
+S104,F,AUGUST CHAO,anger,disgust,NO,Moderate,anger,,2026-05-26T18:19:25.560Z,Twitter
+S105,F,AUGUST CHAO,contentment,joy,NO,Moderate,contentment,,2026-05-26T18:19:40.654Z,Twitter
+S106,F,AUGUST CHAO,contentment,joy,NO,Moderate,contentment,,2026-05-26T18:19:51.568Z,Yelp
+S107,F,AUGUST CHAO,disgust,frustration,NO,Moderate,disgust,,2026-05-26T18:19:59.835Z,Medical
+S108,F,AUGUST CHAO,disgust,annoyance,NO,Moderate,disgust,,2026-05-26T18:20:20.487Z,Medical
+S109,F,AUGUST CHAO,joy,contentment,NO,Moderate,joy,,2026-05-26T18:20:26.935Z,Reddit
+S110,F,AUGUST CHAO,disgust,annoyance,NO,Slight,disgust,,2026-05-26T18:20:36.477Z,Medical
+S111,F,AUGUST CHAO,anger,disgust,NO,Moderate,anger,,2026-05-26T18:20:42.944Z,Reddit
+S112,F,AUGUST CHAO,neutral,contentment,NO,Severe,neutral,,2026-05-26T18:20:49.119Z,Yelp
+S113,F,AUGUST CHAO,anxiety,fear,NO,Slight,anxiety,,2026-05-26T18:20:57.812Z,Medical
+S114,F,AUGUST CHAO,anxiety,fear,NO,Moderate,anxiety,,2026-05-26T18:21:06.861Z,Medical
+S115,F,AUGUST CHAO,sadness,neutral,NO,Moderate,sadness,,2026-05-26T18:21:13.111Z,Reddit
+S116,F,AUGUST CHAO,disgust,annoyance,NO,Slight,disgust,,2026-05-26T18:21:20.544Z,Yelp
+S117,F,AUGUST CHAO,fear,anxiety,NO,Moderate,fear,,2026-05-26T18:21:35.436Z,Medical
+S118,F,AUGUST CHAO,disgust,anger,NO,Moderate,disgust,,2026-05-26T18:21:39.386Z,Twitter
+S119,F,AUGUST CHAO,disgust,annoyance,NO,Slight,disgust,,2026-05-26T18:21:45.469Z,Reddit
+S120,F,AUGUST CHAO,annoyance,frustration,NO,Moderate,annoyance,,2026-05-26T18:21:54.119Z,Reddit
+S121,F,AUGUST CHAO,annoyance,disgust,NO,Moderate,annoyance,,2026-05-26T18:22:00.144Z,Yelp
+S122,F,AUGUST CHAO,annoyance,disgust,NO,Severe,annoyance,,2026-05-26T18:22:07.103Z,Yelp
+S123,F,AUGUST CHAO,frustration,annoyance,NO,Slight,frustration,,2026-05-26T18:22:20.036Z,Reddit
+S124,F,AUGUST CHAO,contentment,neutral,NO,Severe,contentment,,2026-05-26T18:22:27.136Z,Twitter
+S125,F,AUGUST CHAO,sadness,fear,NO,Moderate,sadness,,2026-05-26T18:22:35.353Z,Twitter
+S126,F,AUGUST CHAO,neutral,sadness,NO,Moderate,neutral,,2026-05-26T18:22:43.545Z,Twitter
+S127,F,AUGUST CHAO,contentment,joy,NO,Moderate,contentment,,2026-05-26T18:22:49.878Z,Medical
+S128,F,阮傅煜,annoyance,disgust,NO,Moderate,annoyance,,2026-05-03T04:41:56.132Z,Yelp
+S129,F,AUGUST CHAO,anxiety,fear,NO,Moderate,anxiety,,2026-05-26T18:23:03.694Z,Twitter
+S130,F,AUGUST CHAO,contentment,joy,NO,Moderate,contentment,,2026-05-26T18:23:12.512Z,Twitter
+S131,F,AUGUST CHAO,contentment,neutral,NO,Severe,contentment,,2026-05-26T18:23:22.537Z,Medical
+S132,F,AUGUST CHAO,anxiety,fear,NO,Severe,anxiety,,2026-05-26T18:23:27.928Z,Yelp
+S133,F,AUGUST CHAO,contentment,joy,NO,Moderate,contentment,,2026-05-26T18:23:36.520Z,Medical
+S134,F,AUGUST CHAO,neutral,sadness,NO,Severe,neutral,,2026-05-26T18:23:47.953Z,Yelp
+S135,F,AUGUST CHAO,joy,surprise,NO,Moderate,joy,,2026-05-26T18:23:59.928Z,Twitter
+S136,F,AUGUST CHAO,fear,sadness,NO,Moderate,fear,,2026-05-26T18:24:05.912Z,Medical
+S137,F,AUGUST CHAO,annoyance,disgust,NO,Severe,annoyance,,2026-05-26T18:24:18.286Z,Yelp
+S138,F,AUGUST CHAO,anger,disgust,NO,Severe,anger,,2026-05-26T18:24:28.695Z,Medical
+S139,F,AUGUST CHAO,fear,anxiety,NO,Severe,fear,,2026-05-26T18:24:41.515Z,Yelp
+S140,F,AUGUST CHAO,annoyance,disgust,NO,Moderate,annoyance,,2026-05-26T18:24:48.862Z,Medical
+S141,F,AUGUST CHAO,annoyance,frustration,NO,Moderate,annoyance,,2026-05-26T18:24:56.279Z,Twitter
+S142,F,AUGUST CHAO,fear,anxiety,NO,Severe,fear,,2026-05-26T18:25:05.062Z,Medical
+S143,F,AUGUST CHAO,disgust,annoyance,NO,Moderate,disgust,,2026-05-26T18:25:10.187Z,Yelp
+S144,F,AUGUST CHAO,anxiety,fear,NO,Moderate,anxiety,,2026-05-26T18:25:15.353Z,Yelp
+S145,F,AUGUST CHAO,contentment,neutral,NO,Severe,contentment,,2026-05-26T18:25:21.679Z,Twitter
+S146,F,AUGUST CHAO,annoyance,frustration,NO,Slight,annoyance,,2026-05-26T18:25:31.829Z,Twitter
+S147,F,AUGUST CHAO,disgust,frustration,NO,Moderate,disgust,,2026-05-26T18:25:42.679Z,Twitter
+S148,F,AUGUST CHAO,sadness,neutral,NO,Severe,sadness,,2026-05-26T18:25:50.278Z,Reddit
+S149,F,AUGUST CHAO,contentment,neutral,NO,Slight,contentment,,2026-05-26T18:26:04.120Z,Twitter
+S150,F,AUGUST CHAO,anxiety,fear,NO,Slight,anxiety,,2026-05-26T18:26:16.304Z,Medical
+S151,F,AUGUST CHAO,disgust,annoyance,NO,Moderate,disgust,,2026-05-26T18:26:24.537Z,Yelp
+S152,F,AUGUST CHAO,neutral,sadness,NO,Moderate,neutral,,2026-05-26T18:26:35.787Z,Yelp
+S153,F,AUGUST CHAO,annoyance,disgust,NO,Moderate,annoyance,,2026-05-26T18:26:47.812Z,Twitter
+S154,F,AUGUST CHAO,annoyance,frustration,NO,Severe,annoyance,,2026-05-26T18:26:59.897Z,Medical
+S155,F,AUGUST CHAO,contentment,joy,NO,Moderate,contentment,,2026-05-26T18:27:07.204Z,Reddit
+S156,F,AUGUST CHAO,contentment,joy,NO,Slight,contentment,,2026-05-26T18:27:20.821Z,Twitter
+S157,F,AUGUST CHAO,joy,contentment,NO,Slight,joy,,2026-05-26T18:27:30.196Z,Twitter
+S158,F,AUGUST CHAO,contentment,joy,NO,Moderate,contentment,,2026-05-26T18:27:45.329Z,Twitter
+S159,F,AUGUST CHAO,anger,disgust,NO,Slight,anger,,2026-05-26T18:27:52.346Z,Yelp
+S160,F,AUGUST CHAO,frustration,annoyance,NO,Slight,frustration,,2026-05-26T18:27:59.204Z,Medical
+S161,F,AUGUST CHAO,contentment,neutral,NO,Slight,contentment,,2026-05-26T18:28:05.929Z,Medical
+S162,F,AUGUST CHAO,anger,disgust,NO,Severe,anger,,2026-05-26T18:28:14.395Z,Twitter
+S163,F,AUGUST CHAO,anxiety,fear,NO,Moderate,anxiety,,2026-05-26T18:28:21.988Z,Reddit
+S164,F,AUGUST CHAO,sadness,fear,NO,Severe,sadness,,2026-05-26T18:28:29.155Z,Reddit
+S165,F,AUGUST CHAO,contentment,joy,NO,Moderate,contentment,,2026-05-26T18:28:35.763Z,Twitter
+S166,F,AUGUST CHAO,frustration,annoyance,NO,Moderate,annoyance,,2026-05-26T18:28:42.413Z,Medical
+S167,F,AUGUST CHAO,anxiety,fear,NO,Moderate,fear,,2026-05-26T18:28:48.078Z,Reddit
+S168,F,AUGUST CHAO,frustration,disgust,NO,Moderate,frustration,,2026-05-26T18:28:56.838Z,Yelp
+S169,F,AUGUST CHAO,annoyance,frustration,NO,Slight,annoyance,,2026-05-26T18:29:05.421Z,Yelp
+S170,F,AUGUST CHAO,fear,anxiety,NO,Severe,fear,,2026-05-26T18:29:14.396Z,Medical
+S171,F,AUGUST CHAO,neutral,contentment,NO,Moderate,neutral,,2026-05-26T18:29:18.638Z,Yelp
+S172,F,AUGUST CHAO,anxiety,fear,NO,Moderate,anxiety,,2026-05-26T18:29:23.954Z,Medical
+S173,F,AUGUST CHAO,neutral,contentment,NO,Severe,neutral,,2026-05-26T18:29:32.846Z,Yelp
+S174,F,AUGUST CHAO,frustration,annoyance,NO,Severe,frustration,,2026-05-26T18:29:38.471Z,Yelp
+S175,F,AUGUST CHAO,sadness,fear,NO,Moderate,sadness,,2026-05-26T18:29:51.922Z,Reddit
+S176,F,AUGUST CHAO,anxiety,fear,NO,Moderate,fear,,2026-05-26T18:30:03.446Z,Medical
+S177,F,AUGUST CHAO,fear,sadness,NO,Moderate,fear,,2026-05-26T18:30:12.972Z,Reddit
+S178,F,AUGUST CHAO,joy,contentment,NO,Moderate,joy,,2026-05-26T18:30:24.438Z,Twitter
+S179,F,AUGUST CHAO,fear,anxiety,NO,Moderate,fear,,2026-05-26T18:30:29.863Z,Medical
+S180,F,AUGUST CHAO,disgust,annoyance,NO,Slight,disgust,,2026-05-26T18:30:40.722Z,Yelp
+S181,F,AUGUST CHAO,annoyance,disgust,NO,Moderate,annoyance,,2026-05-26T18:30:51.901Z,Reddit
+S182,F,AUGUST CHAO,anxiety,fear,NO,Severe,anxiety,,2026-05-26T18:30:57.788Z,Yelp
+S183,F,AUGUST CHAO,anger,disgust,NO,Moderate,anger,,2026-05-26T18:31:03.480Z,Reddit
+S184,F,AUGUST CHAO,anger,disgust,NO,Severe,anger,,2026-05-26T18:31:12.821Z,Reddit
+S185,F,AUGUST CHAO,disgust,annoyance,NO,Severe,disgust,,2026-05-26T18:31:21.447Z,Yelp
+S186,F,AUGUST CHAO,neutral,sadness,NO,Severe,neutral,,2026-05-26T18:31:30.447Z,Twitter
+S187,F,AUGUST CHAO,fear,anxiety,NO,Severe,fear,,2026-05-26T18:31:44.713Z,Twitter
+S188,F,AUGUST CHAO,anger,disgust,NO,Moderate,anger,,2026-05-26T18:31:56.263Z,Twitter
+S189,F,AUGUST CHAO,disgust,frustration,NO,Moderate,disgust,,2026-05-26T18:32:07.055Z,Reddit
+S190,F,AUGUST CHAO,anger,disgust,NO,Moderate,anger,,2026-05-26T18:32:13.805Z,Medical
+S191,F,AUGUST CHAO,frustration,disgust,NO,Severe,frustration,,2026-05-26T18:32:20.927Z,Medical
+S192,F,AUGUST CHAO,frustration,annoyance,NO,Moderate,frustration,,2026-05-26T18:32:27.913Z,Twitter
+S193,F,AUGUST CHAO,anxiety,fear,NO,Moderate,anxiety,,2026-05-26T18:32:36.214Z,Reddit
+S194,F,AUGUST CHAO,annoyance,disgust,NO,Slight,annoyance,,2026-05-26T18:32:48.339Z,Medical
+S195,F,AUGUST CHAO,annoyance,disgust,NO,Moderate,annoyance,,2026-05-26T18:32:58.113Z,Reddit
+S196,F,AUGUST CHAO,annoyance,frustration,NO,Moderate,annoyance,,2026-05-26T18:33:01.830Z,Medical
+S197,F,AUGUST CHAO,frustration,disgust,NO,Moderate,frustration,,2026-05-26T18:33:08.739Z,Medical
+S198,F,AUGUST CHAO,sadness,neutral,NO,Moderate,sadness,,2026-05-26T18:33:16.930Z,Medical
+S199,F,AUGUST CHAO,joy,contentment,NO,Slight,joy,,2026-05-26T18:33:31.797Z,Twitter
+S200,F,AUGUST CHAO,sadness,fear,NO,Severe,sadness,,2026-05-26T18:33:38.897Z,Reddit
