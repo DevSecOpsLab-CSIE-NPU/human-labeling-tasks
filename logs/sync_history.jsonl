@@ -633,3 +633,4 @@
 {"timestamp": "2026-08-18 04:11 UTC", "annotators": {"A": {"count": 200, "conflicts": []}, "B": {"count": 201, "conflicts": []}, "C": {"count": 201, "conflicts": []}}, "total": 602}
 {"timestamp": "2026-08-18 08:07 UTC", "annotators": {"A": {"count": 200, "conflicts": []}, "B": {"count": 201, "conflicts": []}, "C": {"count": 201, "conflicts": []}}, "total": 602}
 {"timestamp": "2026-08-18 12:04 UTC", "annotators": {"A": {"count": 200, "conflicts": []}, "B": {"count": 201, "conflicts": []}, "C": {"count": 201, "conflicts": []}}, "total": 602}
+{"timestamp": "2026-08-18 16:04 UTC", "annotators": {"A": {"count": 200, "conflicts": []}, "B": {"count": -1, "error": "[B] 已重試 3 次，放棄。最後錯誤：HTTPSConnectionPool(host='script.googleusercontent.com', port=443): Read timed out. (read timeout=30)"}, "C": {"count": 201, "conflicts": []}}, "total": 401}
